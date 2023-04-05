@@ -14,26 +14,32 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to={'/'}>Register</Link>
+              <Link to="/">Register</Link>
             </li>
             <li>
-              <Link to={'login'}>Login</Link>
+              <Link to="/login">Login</Link>
             </li>
-             {isLoggedIn && <li>
-              <Link to={'store'}>Store</Link>
-            </li>}
+            {isLoggedIn && (
+              <li>
+                <Link to="/store">Store</Link>
+              </li>
+            )}
           </ul>
         </nav>
 
         <Switch>
-          <Route exact path={'/'}>
+          <Route exact path="/">
             <Register />
           </Route>
-          <Route exact path={'/login'}>
+          <Route path="/login">
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
-          <Route exact path={'/store'}>
-            <Store setIsLoggedIn={setIsLoggedIn} />
+          <Route path="/store">
+            {isLoggedIn ? (
+              <Store setIsLoggedIn={setIsLoggedIn} />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
         </Switch>
       </BrowserRouter>
